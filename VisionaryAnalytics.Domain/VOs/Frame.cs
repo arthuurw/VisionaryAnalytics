@@ -1,4 +1,4 @@
-﻿namespace VisionaryAnalytics.Domain.VOs
+namespace VisionaryAnalytics.Domain.VOs
 {
-    public record Frame(string Caminho, TimeSpan Timestamp);
+    public record Frame(string Caminho, TimeSpan Instante);
 }

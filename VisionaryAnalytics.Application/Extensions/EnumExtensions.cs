@@ -5,15 +5,15 @@ namespace VisionaryAnalytics.Application.Extensions
 {
     public static class EnumExtensions
     {
-        public static string GetDisplayName(this Enum enumValue)
+        public static string ObterNomeExibicao(this Enum valorEnum)
         {
-            var displayName = enumValue.GetType()
-                .GetMember(enumValue.ToString())
+            var displayName = valorEnum.GetType()
+                .GetMember(valorEnum.ToString())
                 .First()
                 .GetCustomAttribute<DisplayAttribute>()?
                 .GetName();
 
-            return displayName ?? enumValue.ToString();
+            return displayName ?? valorEnum.ToString();
         }
     }
 }

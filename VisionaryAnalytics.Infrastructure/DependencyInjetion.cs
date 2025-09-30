@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -27,7 +27,8 @@ namespace VisionaryAnalytics.Infrastructure
                 return client.GetDatabase(mongoDbSettings.DatabaseName);
             });
 
-            services.AddSingleton<IConnectionFactory>(sp => {
+            services.AddSingleton<IConnectionFactory>(sp =>
+            {
                 var rabbitConfig = sp.GetRequiredService<IOptions<RabbitMQOptions>>().Value;
                 var factory = new ConnectionFactory()
                 {
@@ -41,8 +42,21 @@ namespace VisionaryAnalytics.Infrastructure
             services.AddScoped<IVideoJobRepository, VideoJobRepository>();
             services.AddScoped<IArmazenamentoArquivoService, ArmazenamentoArquivoLocalService>();
             services.AddScoped<IVideoFrameService, FfmpegVideoFrameService>();
+            services.AddScoped<IServicoDecodificadorQrCode, ServicoDecodificadorQrCode>();
             services.AddSingleton<IProdutorMessageBroker, RabbitMqProducer>();
             services.AddSingleton<IConsumidorMessageBroker, RabbitMqConsumer>();
+            services.AddSingleton<ServicoNotificacaoTempoRealNulo>();
+            services.AddSingleton<IServicoNotificacaoTempoReal>(sp =>
+            {
+                var options = sp.GetRequiredService<IOptions<OpcoesSignalR>>().Value;
+
+                if (string.IsNullOrWhiteSpace(options.UrlHub))
+                {
+                    return sp.GetRequiredService<ServicoNotificacaoTempoRealNulo>();
+                }
+
+                return ActivatorUtilities.CreateInstance<ServicoNotificacaoTempoRealSignalR>(sp);
+            });
 
             return services;
         }

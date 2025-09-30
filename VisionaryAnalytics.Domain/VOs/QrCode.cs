@@ -1,4 +1,4 @@
-﻿namespace VisionaryAnalytics.Domain.VOs
+namespace VisionaryAnalytics.Domain.VOs
 {
-    public record QrCode(TimeSpan Timestamp, string Conteudo);
+    public record QrCode(TimeSpan Instante, string Conteudo);
 }
