@@ -43,7 +43,7 @@ kubectl get pods -n visionary-analytics
 ## 4. Acessar serviços expostos
 - **API**: disponível em `http://localhost:30080` (Service `NodePort`).
 - **RabbitMQ Management**: painel em `http://localhost:31567` (usuário/senha `guest`).
-- **MongoDB**: porta `32017` exposta para conexões externas (ex.: `mongodb://mongoadmin:secret@localhost:32017/?authSource=admin`).
+- **MongoDB**: porta `32017` exposta para conexões externas (ex.: `mongodb://mongoadmin:secret@localhost:32017/`).
 
 ## 5. Volumes persistentes
 - `pvc-video-storage`: armazena o vídeo enviado e os frames gerados. Montado em `/app/uploads` para API e workers.

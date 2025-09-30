@@ -11,7 +11,7 @@ services:
       - "8080:8080"
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/?authSource=admin"
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
       MongoDbSettings__DatabaseName: "video-jobs-db"
       RabbitMQ__HostName: rabbitmq
       RabbitMQ__UserName: guest
@@ -31,7 +31,7 @@ services:
       target: frameworker
     image: visionaryanalytics-frameworker
     environment:
-      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/?authSource=admin"
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
       MongoDbSettings__DatabaseName: "video-jobs-db"
       RabbitMQ__HostName: rabbitmq
       RabbitMQ__UserName: guest
@@ -52,7 +52,7 @@ services:
       target: videoworker
     image: visionaryanalytics-videoworker
     environment:
-      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/?authSource=admin"
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
       MongoDbSettings__DatabaseName: "video-jobs-db"
       RabbitMQ__HostName: rabbitmq
       RabbitMQ__UserName: guest
