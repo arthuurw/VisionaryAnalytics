@@ -9,6 +9,7 @@ using VisionaryAnalytics.Domain.Entities;
 using VisionaryAnalytics.Domain.Enums;
 using VisionaryAnalytics.Domain.Interfaces.Repositories;
 using VisionaryAnalytics.Domain.VOs;
+using Xunit;
 
 namespace VisionaryAnalytics.Application.Tests.Services;
 
