@@ -1,19 +1,21 @@
+using VisionaryAnalytics.Api.Hubs;
 using VisionaryAnalytics.Application;
 using VisionaryAnalytics.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adiciona serviços ao contêiner.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Saiba mais sobre a configuração do OpenAPI em https://aka.ms/aspnet/openapi
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSwagger", policy =>
+    options.AddPolicy("LiberarSwagger", policy =>
     {
         policy
             .AllowAnyOrigin()
@@ -22,10 +24,9 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configura o pipeline de requisição HTTP.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,10 +35,11 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
-app.UseCors("AllowSwagger");
+app.UseCors("LiberarSwagger");
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<HubProcessamento>("/hubs/processamento");
 
 app.Run();

@@ -1,0 +1,95 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+    image: visionaryanalytics-api
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
+      MongoDbSettings__DatabaseName: "video-jobs-db"
+      RabbitMQ__HostName: rabbitmq
+      RabbitMQ__UserName: guest
+      RabbitMQ__Password: guest
+      Armazenamento__DiretorioBase: "/app/uploads"
+      NotificacoesTempoReal__UrlHub: ""
+    depends_on:
+      - rabbitmq
+      - mongo
+    volumes:
+      - video-storage:/app/uploads
+
+  frame-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frameworker
+    image: visionaryanalytics-frameworker
+    environment:
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
+      MongoDbSettings__DatabaseName: "video-jobs-db"
+      RabbitMQ__HostName: rabbitmq
+      RabbitMQ__UserName: guest
+      RabbitMQ__Password: guest
+      Armazenamento__DiretorioBase: "/app/uploads"
+      NotificacoesTempoReal__UrlHub: "http://api:8080/hubs/processamento"
+    depends_on:
+      - rabbitmq
+      - mongo
+      - api
+    volumes:
+      - video-storage:/app/uploads
+
+  video-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: videoworker
+    image: visionaryanalytics-videoworker
+    environment:
+      MongoDbSettings__ConnectionString: "mongodb://mongoadmin:secret@mongo:27017/"
+      MongoDbSettings__DatabaseName: "video-jobs-db"
+      RabbitMQ__HostName: rabbitmq
+      RabbitMQ__UserName: guest
+      RabbitMQ__Password: guest
+      Armazenamento__DiretorioBase: "/app/uploads"
+      NotificacoesTempoReal__UrlHub: "http://api:8080/hubs/processamento"
+    depends_on:
+      - rabbitmq
+      - mongo
+      - api
+    volumes:
+      - video-storage:/app/uploads
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  video-storage:
+  mongo-data:
