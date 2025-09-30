@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.Api", "VisionaryAnalytics.Api\VisionaryAnalytics.Api.csproj", "{B6F95DC4-F344-490D-947D-089BF4F476E0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9046757-95A5-4B8E-A369-EB9D49AEE00B} = {B9046757-95A5-4B8E-A369-EB9D49AEE00B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.Domain", "VisionaryAnalytics.Domain\VisionaryAnalytics.Domain.csproj", "{3D9D9A38-B229-467A-9258-AC063D477194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.Infrastructure", "VisionaryAnalytics.Infrastructure\VisionaryAnalytics.Infrastructure.csproj", "{B9046757-95A5-4B8E-A369-EB9D49AEE00B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.Application", "VisionaryAnalytics.Application\VisionaryAnalytics.Application.csproj", "{E6EE4A60-37D5-4E40-B1F6-8C43FA3D7113}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.FrameWorker", "VisionaryAnalytics.FrameWorker\VisionaryAnalytics.FrameWorker.csproj", "{9E313669-D8DA-4CE8-9593-9C1D693F10E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisionaryAnalytics.VideoWorker", "VisionaryAnalytics.VideoWorker\VisionaryAnalytics.VideoWorker.csproj", "{FD33658F-FE0D-A106-B45C-BC8299D7BB71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6F95DC4-F344-490D-947D-089BF4F476E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F95DC4-F344-490D-947D-089BF4F476E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F95DC4-F344-490D-947D-089BF4F476E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F95DC4-F344-490D-947D-089BF4F476E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D9D9A38-B229-467A-9258-AC063D477194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D9D9A38-B229-467A-9258-AC063D477194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D9D9A38-B229-467A-9258-AC063D477194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D9D9A38-B229-467A-9258-AC063D477194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9046757-95A5-4B8E-A369-EB9D49AEE00B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9046757-95A5-4B8E-A369-EB9D49AEE00B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9046757-95A5-4B8E-A369-EB9D49AEE00B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9046757-95A5-4B8E-A369-EB9D49AEE00B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6EE4A60-37D5-4E40-B1F6-8C43FA3D7113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6EE4A60-37D5-4E40-B1F6-8C43FA3D7113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6EE4A60-37D5-4E40-B1F6-8C43FA3D7113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6EE4A60-37D5-4E40-B1F6-8C43FA3D7113}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E313669-D8DA-4CE8-9593-9C1D693F10E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E313669-D8DA-4CE8-9593-9C1D693F10E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E313669-D8DA-4CE8-9593-9C1D693F10E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E313669-D8DA-4CE8-9593-9C1D693F10E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD33658F-FE0D-A106-B45C-BC8299D7BB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD33658F-FE0D-A106-B45C-BC8299D7BB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD33658F-FE0D-A106-B45C-BC8299D7BB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD33658F-FE0D-A106-B45C-BC8299D7BB71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73D5A121-88EF-4A6C-827A-E2F84DC157C0}
+	EndGlobalSection
+EndGlobal
