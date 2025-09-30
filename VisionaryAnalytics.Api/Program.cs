@@ -43,3 +43,5 @@ app.MapControllers();
 app.MapHub<HubProcessamento>("/hubs/processamento");
 
 app.Run();
+
+public partial class Program { }
