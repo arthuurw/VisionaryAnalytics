@@ -38,8 +38,8 @@ namespace VisionaryAnalytics.Api.Controllers
             return Ok(new { Resultados = resultado.Value });
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> Post(IFormFile arquivo) 
+        [HttpPost("enviar")]
+        public async Task<IActionResult> Enviar(IFormFile arquivo)
         {
             if (arquivo == null || arquivo.Length == 0)
             {
@@ -49,10 +49,10 @@ namespace VisionaryAnalytics.Api.Controllers
             using var stream = arquivo.OpenReadStream();
             var nomeArquivo = arquivo.FileName;
             var tamanhoArquivo = arquivo.Length;
-            var contentType = arquivo.ContentType;
+            var tipoConteudo = arquivo.ContentType;
             var extensao = Path.GetExtension(nomeArquivo);
 
-            var resultado = await _videoJobService.CriarJobAsync(stream, nomeArquivo, extensao, contentType, tamanhoArquivo);
+            var resultado = await _videoJobService.CriarJobAsync(stream, nomeArquivo, extensao, tipoConteudo, tamanhoArquivo);
             if (!resultado.Sucesso)
             {
                 return BadRequest(resultado.Mensagem);

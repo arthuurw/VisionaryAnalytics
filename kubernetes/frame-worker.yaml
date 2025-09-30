@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frame-worker
+  namespace: visionary-analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frame-worker
+  template:
+    metadata:
+      labels:
+        app: frame-worker
+    spec:
+      containers:
+        - name: frame-worker
+          image: visionaryanalytics-frameworker:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: configuracoes-aplicacao
+          env:
+            - name: MongoDbSettings__ConnectionString
+              valueFrom:
+                secretKeyRef:
+                  name: credenciais-principais
+                  key: mongo-connection-string
+            - name: RabbitMQ__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: credenciais-principais
+                  key: rabbitmq-username
+            - name: RabbitMQ__Password
+              valueFrom:
+                secretKeyRef:
+                  name: credenciais-principais
+                  key: rabbitmq-password
+          volumeMounts:
+            - name: armazenamento-videos
+              mountPath: /app/uploads
+      volumes:
+        - name: armazenamento-videos
+          persistentVolumeClaim:
+            claimName: pvc-video-storage
