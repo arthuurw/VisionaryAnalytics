@@ -14,24 +14,24 @@ namespace VisionaryAnalytics.Application.Services
         private readonly IValidadorArquivoService _validadorArquivoService;
         private readonly IArmazenamentoArquivoService _armazenamentoArquivoService;
         private readonly IVideoJobRepository _videoJobRepository;
-        private readonly IProdutorMessageBroker _producer;
+        private readonly IProdutorMessageBroker _produtor;
         private readonly RabbitMQQueues _rabbitQueues;
 
         public VideoJobService(
             IValidadorArquivoService validadorArquivoService, 
             IArmazenamentoArquivoService armazenamentoArquivoService,
             IVideoJobRepository repository,
-            IProdutorMessageBroker producer,
+            IProdutorMessageBroker produtor,
             IOptions<RabbitMQOptions> rabbitOptions)
         {
             _validadorArquivoService = validadorArquivoService;
             _armazenamentoArquivoService = armazenamentoArquivoService;
             _videoJobRepository = repository;
-            _producer = producer;
+            _produtor = produtor;
             _rabbitQueues = rabbitOptions.Value.Queues;
         }
 
-        public async Task<Resultado<string>> CriarJobAsync(Stream stream, string nomeArquivo, string extensao, string contentType, long tamanhoArquivo)
+        public async Task<Resultado<string>> CriarJobAsync(Stream stream, string nomeArquivo, string extensao, string tipoConteudo, long tamanhoArquivo)
         {
             var resultadoValidacao = _validadorArquivoService.Validar(nomeArquivo, extensao, tamanhoArquivo);
             if (!resultadoValidacao.Sucesso) return resultadoValidacao;
@@ -43,7 +43,7 @@ namespace VisionaryAnalytics.Application.Services
             var job = VideoJob.Criar(nomeArquivo, novoNome);
             await _videoJobRepository.CriarAsync(job);
 
-            await _producer.ProduzirAsync<VideoJob>(job, _rabbitQueues.ExtrairFrames);
+            await _produtor.ProduzirAsync<VideoJob>(job, _rabbitQueues.ExtrairFrames);
 
             return Resultado<string>.Ok(null, job.Id);
         }
@@ -63,7 +63,7 @@ namespace VisionaryAnalytics.Application.Services
 
             return job == null
                 ? Resultado<string>.Falha($"Processamento para o ID {id} não encontrado")
-                : Resultado<string>.Ok(null, job.Status.GetDisplayName());
+                : Resultado<string>.Ok(null, job.Status.ObterNomeExibicao());
         }
     }
 }
