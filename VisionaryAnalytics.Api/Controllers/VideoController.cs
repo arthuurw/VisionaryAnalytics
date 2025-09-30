@@ -39,7 +39,7 @@ namespace VisionaryAnalytics.Api.Controllers
         }
 
         [HttpPost("enviar")]
-        public async Task<IActionResult> Enviar(IFormFile arquivo)
+        public async Task<IActionResult> Enviar([FromForm] IFormFile arquivo)
         {
             if (arquivo == null || arquivo.Length == 0)
             {
