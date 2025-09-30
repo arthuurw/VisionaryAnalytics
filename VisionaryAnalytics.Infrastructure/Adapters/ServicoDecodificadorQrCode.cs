@@ -47,6 +47,7 @@ namespace VisionaryAnalytics.Infrastructure.Adapters
                 var height = bitmap.Height;
 
                 var resultado = _reader.Decode(pixels, width, height, ZXing.RGBLuminanceSource.BitmapFormat.RGB32);
+                
                 return Task.FromResult(resultado != null ? new QrCode(frame.Instante, resultado.Text) : null);
             }
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)

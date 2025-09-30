@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configuracoes-aplicacao
+  namespace: visionary-analytics
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  MongoDbSettings__DatabaseName: "video-jobs-db"
+  RabbitMQ__HostName: "rabbitmq"
+  Armazenamento__DiretorioBase: "/app/uploads"
+  NotificacoesTempoReal__UrlHub: "http://api:8080/hubs/processamento"
