@@ -4,7 +4,6 @@ using VisionaryAnalytics.Domain.VOs;
 using SkiaSharp;
 using ZXing;
 using ZXing.Common;
-using ZXing.SkiaSharp;
 
 namespace VisionaryAnalytics.Infrastructure.Adapters
 {
@@ -42,7 +41,12 @@ namespace VisionaryAnalytics.Infrastructure.Adapters
                     return Task.FromResult<QrCode?>(null);
                 }
 
-                var resultado = _reader.Decode(bitmap);
+                // Convert SKBitmap to byte[] in RGB format
+                var pixels = bitmap.Bytes;
+                var width = bitmap.Width;
+                var height = bitmap.Height;
+
+                var resultado = _reader.Decode(pixels, width, height, ZXing.RGBLuminanceSource.BitmapFormat.RGB32);
                 return Task.FromResult(resultado != null ? new QrCode(frame.Instante, resultado.Text) : null);
             }
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
