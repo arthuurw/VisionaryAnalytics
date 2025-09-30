@@ -38,7 +38,14 @@ Verifique o status dos pods:
 
 ```bash
 kubectl get pods -n visionary-analytics
+kubectl -n visionary-analytics get pods -o wide
 ```
+
+kubectl -n visionary-analytics set env deploy/api ASPNETCORE_ENVIRONMENT=Development
+kubectl -n visionary-analytics rollout restart deploy/api
+kubectl -n visionary-analytics get pods
+
+kubectl -n visionary-analytics logs deploy/video-worker -f
 
 ## 4. Acessar serviços expostos
 - **API**: disponível em `http://localhost:30080` (Service `NodePort`).

@@ -26,16 +26,38 @@ spec:
                 secretKeyRef:
                   name: credenciais-principais
                   key: mongo-connection-string
-            - name: RabbitMQ__UserName
+            - name: RabbitMq__Host
+              value: "rabbitmq"
+            - name: RabbitMq__Port
+              value: "5672"
+            - name: RabbitMq__VirtualHost
+              value: "/"
+            - name: RabbitMq__Username
               valueFrom:
                 secretKeyRef:
-                  name: credenciais-principais
-                  key: rabbitmq-username
-            - name: RabbitMQ__Password
+                  name: rabbitmq-secrets
+                  key: username
+            - name: RabbitMq__Password
               valueFrom:
                 secretKeyRef:
-                  name: credenciais-principais
-                  key: rabbitmq-password
+                  name: rabbitmq-secrets
+                  key: password
+            - name: RABBITMQ__HOST
+              value: "rabbitmq"
+            - name: RABBITMQ__PORT
+              value: "5672"
+            - name: RABBITMQ__VHOST
+              value: "/"
+            - name: RABBITMQ__USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: username
+            - name: RABBITMQ__PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: password
           volumeMounts:
             - name: armazenamento-videos
               mountPath: /app/uploads
