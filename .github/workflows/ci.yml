@@ -11,19 +11,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
+          cache: true
+          cache-dependency-path: |
+            **/*.csproj
+            **/global.json
+            **/NuGet.Config
+            **/nuget.config
 
-      - name: Restore dependencies
-        run: dotnet restore VisionaryAnalytics.sln
+      # (opcional) limpar caches locais do runner p/ evitar restaure “sujo”
+      - name: Clear dotnet/nuget caches
+        run: |
+          dotnet nuget locals all --clear
+          dotnet --info
 
+      # restaura com log detalhado; se falhar em 1 projeto, a etapa deve falhar
+      - name: Restore
+        run: dotnet restore VisionaryAnalytics.sln --verbosity minimal
+
+      # sanity check: garanta que os assets foram gerados para os projetos “problemáticos”
+      - name: Verify restore artifacts
+        run: |
+          test -f VisionaryAnalytics.VideoWorker/obj/project.assets.json || (echo "Restore failed for VideoWorker" && exit 1)
+          test -f VisionaryAnalytics.FrameWorker/obj/project.assets.json || (echo "Restore failed for FrameWorker" && exit 1)
+          test -f VisionaryAnalytics.Api/obj/project.assets.json || (echo "Restore failed for Api" && exit 1)
+
+      # 2 opções:
+      # A) juntar restore+build (recomendado)
+      - name: Build (with restore)
+        run: dotnet build VisionaryAnalytics.sln --configuration Release --no-incremental
+
+      # B) ou manter build separado, mas sem --no-restore somente se o restore foi verificado
       - name: Build solution
         run: dotnet build VisionaryAnalytics.sln --configuration Release --no-restore
 
-      - name: Run tests
-        run: dotnet test VisionaryAnalytics.sln --configuration Release --no-build
+      - name: Test
+        run: dotnet test VisionaryAnalytics.sln --configuration Release --no-build --verbosity normal
