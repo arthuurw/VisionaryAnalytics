@@ -26,7 +26,7 @@ spec:
                 secretKeyRef:
                   name: credenciais-principais
                   key: mongo-connection-string
-                        - name: RabbitMq__Host
+            - name: RabbitMq__Host
               value: "rabbitmq"
             - name: RabbitMq__Port
               value: "5672"

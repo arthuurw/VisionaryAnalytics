@@ -10,7 +10,7 @@ COPY VisionaryAnalytics.Api/VisionaryAnalytics.Api.csproj VisionaryAnalytics.Api
 COPY VisionaryAnalytics.FrameWorker/VisionaryAnalytics.FrameWorker.csproj VisionaryAnalytics.FrameWorker/
 COPY VisionaryAnalytics.VideoWorker/VisionaryAnalytics.VideoWorker.csproj VisionaryAnalytics.VideoWorker/
 
-RUN dotnet restore
+#RUN dotnet restore
 
 COPY . .
 

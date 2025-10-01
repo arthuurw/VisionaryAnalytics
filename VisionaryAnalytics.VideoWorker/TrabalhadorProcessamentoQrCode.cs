@@ -112,7 +112,7 @@ namespace VisionaryAnalytics.Worker
             job.ConcluirProcessamento(resultadosOrdenados);
             await repositorio.AtualizarAsync(job);
 
-            await notificador.NotificarConclusaoAsync(job.Id, job.Resultados);
+            //await notificador.NotificarConclusaoAsync(job.Id, job.Resultados);
             _logger.LogInformation("Job {JobId} concluído. Total de QR Codes encontrados: {Quantidade}.", job.Id, job.Resultados.Count);
         }
 

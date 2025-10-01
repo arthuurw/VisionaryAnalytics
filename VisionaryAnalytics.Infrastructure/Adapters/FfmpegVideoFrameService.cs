@@ -17,7 +17,7 @@ namespace VisionaryAnalytics.Infrastructure.Adapters
             for (var i = 0; i < duracaoEmSegundos; i++)
             {
                 var timestamp = TimeSpan.FromSeconds(i);
-                var nomeArquivo = $"{id}_frame_{i:D4}.jpg";
+                var nomeArquivo = $"{id}_frame_{i:D4}.png";
                 var caminhoSaida = Path.Combine(diretorioSaida, nomeArquivo);
 
                 await FFMpeg.SnapshotAsync(caminhoVideo, caminhoSaida, null, timestamp);
