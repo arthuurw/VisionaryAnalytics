@@ -43,7 +43,7 @@ public class VideoControllerTests
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonDocument>();
-        body!.RootElement.GetProperty("Status").GetString().Should().Be("Processando");
+        body!.RootElement.GetProperty("status").GetString().Should().Be("Processando");
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class VideoControllerTests
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonDocument>();
-        var lista = body!.RootElement.GetProperty("Resultados").EnumerateArray().Select(e => e.GetProperty("Conteudo").GetString()).ToList();
+        var lista = body!.RootElement.GetProperty("resultados").EnumerateArray().Select(e => e.GetProperty("conteudo").GetString()).ToList();
         lista.Should().BeEquivalentTo(new[] { "conteudo-1", "conteudo-2" });
     }
 
@@ -115,6 +115,6 @@ public class VideoControllerTests
 
         response.StatusCode.Should().Be(HttpStatusCode.Accepted);
         var body = await response.Content.ReadFromJsonAsync<JsonDocument>();
-        body!.RootElement.GetProperty("Id").GetString().Should().Be("abc");
+        body!.RootElement.GetProperty("id").GetString().Should().Be("abc");
     }
 }
